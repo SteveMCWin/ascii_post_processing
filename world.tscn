@@ -1,20 +1,51 @@
-[gd_scene load_steps=8 format=3 uid="uid://mtld4i66u772"]
+[gd_scene load_steps=5 format=3 uid="uid://mtld4i66u772"]
 
-[ext_resource type="Shader" uid="uid://cgb46nxjhyi81" path="res://scripts/test_shader.gdshader" id="1_fj7yv"]
-[ext_resource type="Script" uid="uid://df4exmycltij6" path="res://scripts/idkman.gd" id="3_tlwt5"]
-[ext_resource type="Shader" uid="uid://7hjrpkn1vko" path="res://scripts/ascii.gdshader" id="4_036b0"]
 [ext_resource type="Texture2D" uid="uid://ddhykrf3sonya" path="res://tool4.jpg" id="4_dwbse"]
-[ext_resource type="CompressedTexture2DArray" uid="uid://ctwxp61ffmaho" path="res://sprites/custom_chars.png" id="6_dwbse"]
+
+[sub_resource type="Shader" id="Shader_tlwt5"]
+code = "shader_type canvas_item;
+
+void vertex() {
+    float strength = 0.0;
+    if(UV.y < 0.5) {
+        strength = 1.0;
+    }
+    VERTEX += vec2(cos(TIME)*100.0, 0.0) * vec2(strength);
+}
+
+uniform float blueness = 0.0;
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+    COLOR = texture(TEXTURE, UV);
+    COLOR.b = blueness;
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_aqk2v"]
-shader = ExtResource("1_fj7yv")
+shader = SubResource("Shader_tlwt5")
 shader_parameter/blueness = 0.185
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_036b0"]
-shader = ExtResource("4_036b0")
-shader_parameter/custom_chars = ExtResource("6_dwbse")
-shader_parameter/color_dark = Color(0, 0, 0, 1)
-shader_parameter/color_bright = Color(1, 1, 1, 1)
+[sub_resource type="GDScript" id="GDScript_aqk2v"]
+script/source = "extends Sprite2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	var blu: float = 1.0
+	material.set_shader_parameter(\"blueness\", blu)
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
 
 [node name="world" type="Node2D"]
 
@@ -22,18 +53,8 @@ shader_parameter/color_bright = Color(1, 1, 1, 1)
 visible = false
 material = SubResource("ShaderMaterial_aqk2v")
 position = Vector2(527, 286)
-script = ExtResource("3_tlwt5")
+script = SubResource("GDScript_aqk2v")
 
 [node name="TestSprite" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
 texture = ExtResource("4_dwbse")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-material = SubResource("ShaderMaterial_036b0")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2

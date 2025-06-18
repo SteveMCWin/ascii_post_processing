@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://coisn1jv1begr"
+path="res://.godot/imported/gausian_compute_h.glsl-f229fb68ba05ce589cbd50bb11ab75de.res"
+
+[deps]
+
+source_file="res://scripts/gausian_compute_h.glsl"
+dest_files=["res://.godot/imported/gausian_compute_h.glsl-f229fb68ba05ce589cbd50bb11ab75de.res"]
+
+[params]
+

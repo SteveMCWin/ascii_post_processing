@@ -32,6 +32,7 @@ void fragment() {
     // vec4 monochrome = vec4(custom_color, pixelated.a);
 
     int char_idx = int(floor(length(pixelated.xyz)*10.0));
+    // int char_idx = int(floor(dot(pixelated.xyz, vec3(0.333))*10.0)); // consider this optimization trick
     char_idx = clamp(char_idx, 0, 9);
 
     vec2 char_uv = mod(FRAGCOORD.xy, vec2(8.0, 8.0))/8.0;
