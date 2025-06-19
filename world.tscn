@@ -1,9 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://mtld4i66u772"]
+[gd_scene load_steps=5 format=3 uid="uid://mtld4i66u772"]
 
+[ext_resource type="Shader" uid="uid://7hjrpkn1vko" path="res://scripts/ascii.gdshader" id="2_tlwt5"]
+[ext_resource type="CompressedTexture2DArray" uid="uid://ctwxp61ffmaho" path="res://sprites/custom_chars.png" id="3_aqk2v"]
 [ext_resource type="Texture2D" uid="uid://ddhykrf3sonya" path="res://tool4.jpg" id="4_dwbse"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_036b0"]
+shader = ExtResource("2_tlwt5")
+shader_parameter/custom_chars = ExtResource("3_aqk2v")
+shader_parameter/color_dark = Color(0, 0, 0, 1)
+shader_parameter/color_bright = Color(1, 1, 1, 1)
 
 [node name="world" type="Node2D"]
 
 [node name="TestSprite" type="Sprite2D" parent="."]
 position = Vector2(960, 540)
 texture = ExtResource("4_dwbse")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_036b0")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

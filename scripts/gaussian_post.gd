@@ -1,5 +1,5 @@
 @tool
-class_name PostProcessGrayScale
+class_name PostProcessGaussian
 extends CompositorEffect
 
 var rd: RenderingDevice
@@ -91,6 +91,12 @@ func _initialize_compute() -> void:
 	uniform.add_id(texture_rds[1])
 	texture_sets[1] = rd.uniform_set_create([uniform], gausian_compute_v, 0)
 
+	# print("texture_rds[1] = ", texture_rds[1])
+	# output_texture.texture_rd_rid = texture_rds[1]
+	print("type of texture_rds[1]: ", typeof(texture_rds[1]))
+	print("type of output_texture: ", typeof(output_texture))
+	
+
 
 func gausian_blur(p_effect_callback_type: EffectCallbackType, p_render_data: RenderData) -> void:
 	if rd and p_effect_callback_type == EFFECT_CALLBACK_TYPE_POST_TRANSPARENT and gausian_pipeline_h.is_valid() and gausian_pipeline_v.is_valid():
@@ -151,6 +157,7 @@ func gausian_blur(p_effect_callback_type: EffectCallbackType, p_render_data: Ren
 
 				# rd.buffer_copy(texture_sets[1], color_buff, 0, 0, size.x * size.y)
 				# var res := rd.buffer_get_data(texture_rds[1])
+				# print(res)
 
 
 # Called by the rendering thread every frame.

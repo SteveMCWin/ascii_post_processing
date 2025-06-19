@@ -1,13 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://2oh224621abf"]
+[gd_scene load_steps=12 format=3 uid="uid://2oh224621abf"]
 
 [ext_resource type="ArrayMesh" uid="uid://18spx004psax" path="res://KayKit_DungeonRemastered_1.1_FREE/Assets/obj/barrel_small_stack.obj" id="1_oecuk"]
 [ext_resource type="ArrayMesh" uid="uid://bfyhoyha240dw" path="res://KayKit_DungeonRemastered_1.1_FREE/Assets/obj/bed_frame.obj" id="2_uffpt"]
 [ext_resource type="ArrayMesh" uid="uid://blgr3rhh00y21" path="res://KayKit_DungeonRemastered_1.1_FREE/Assets/obj/bottle_B_green.obj" id="3_ec3hn"]
-[ext_resource type="Script" uid="uid://ds2xjc6exha2q" path="res://scripts/grayscale_post.gd" id="4_uffpt"]
+[ext_resource type="Script" uid="uid://ds2xjc6exha2q" path="res://scripts/gaussian_post.gd" id="4_uffpt"]
+[ext_resource type="Script" uid="uid://d0t35qt30erts" path="res://HandleCameraPost.gd" id="5_6kvxp"]
+[ext_resource type="Shader" uid="uid://djopoqqhksx0u" path="res://scripts/testing_3d_post.gdshader" id="5_ec3hn"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6kvxp"]
 
-[sub_resource type="CompositorEffect" id="CompositorEffect_uffpt"]
+[sub_resource type="CompositorEffect" id="CompositorEffect_ec3hn"]
 resource_local_to_scene = false
 resource_name = ""
 enabled = true
@@ -18,7 +20,16 @@ script = ExtResource("4_uffpt")
 metadata/_custom_type_script = "uid://ds2xjc6exha2q"
 
 [sub_resource type="Compositor" id="Compositor_oecuk"]
-compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_uffpt")])
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_ec3hn")])
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6kvxp"]
+render_priority = 0
+shader = ExtResource("5_ec3hn")
+shader_parameter/debug_value = 13
+
+[sub_resource type="QuadMesh" id="QuadMesh_ax0ki"]
+flip_faces = true
+size = Vector2(2, 2)
 
 [node name="World" type="Node3D"]
 
@@ -57,6 +68,14 @@ skeleton = NodePath("../..")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.633475, 0, -0.773763, 0, 1, 0, 0.773763, 0, 0.633475, -3.8098, 1.57792, 2.69907)
 compositor = SubResource("Compositor_oecuk")
+script = ExtResource("5_6kvxp")
+
+[node name="PostProcessQuad" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(0.633475, 0, 0.773763, 0, 1, 0, -0.773763, 0, 0.633475, -5.05461, -1.57792, -9.06191)
+material_override = SubResource("ShaderMaterial_6kvxp")
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_ax0ki")
+skeleton = NodePath("../..")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.51454, 3.29399, 0.692327)

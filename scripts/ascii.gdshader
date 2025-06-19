@@ -5,7 +5,9 @@
 
 // ✓✓✓ render all characters instead of pixels
 
-// use the kuwahara and sobel filters to detect the edge
+// use the difference of gaussians to detect edges
+
+// use the sobel filters to get the vector field
 
 // replace the coresponding pixels with edgelines
 
