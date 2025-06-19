@@ -1,59 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://mtld4i66u772"]
+[gd_scene load_steps=2 format=3 uid="uid://mtld4i66u772"]
 
 [ext_resource type="Texture2D" uid="uid://ddhykrf3sonya" path="res://tool4.jpg" id="4_dwbse"]
 
-[sub_resource type="Shader" id="Shader_tlwt5"]
-code = "shader_type canvas_item;
-
-void vertex() {
-    float strength = 0.0;
-    if(UV.y < 0.5) {
-        strength = 1.0;
-    }
-    VERTEX += vec2(cos(TIME)*100.0, 0.0) * vec2(strength);
-}
-
-uniform float blueness = 0.0;
-
-void fragment() {
-	// Called for every pixel the material is visible on.
-    COLOR = texture(TEXTURE, UV);
-    COLOR.b = blueness;
-}
-
-//void light() {
-//	// Called for every pixel for every light affecting the CanvasItem.
-//	// Uncomment to replace the default light processing function with this one.
-//}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_aqk2v"]
-shader = SubResource("Shader_tlwt5")
-shader_parameter/blueness = 0.185
-
-[sub_resource type="GDScript" id="GDScript_aqk2v"]
-script/source = "extends Sprite2D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	var blu: float = 1.0
-	material.set_shader_parameter(\"blueness\", blu)
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-"
-
 [node name="world" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_aqk2v")
-position = Vector2(527, 286)
-script = SubResource("GDScript_aqk2v")
 
 [node name="TestSprite" type="Sprite2D" parent="."]
 position = Vector2(960, 540)

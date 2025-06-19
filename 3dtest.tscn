@@ -7,7 +7,7 @@
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6kvxp"]
 
-[sub_resource type="CompositorEffect" id="CompositorEffect_ec3hn"]
+[sub_resource type="CompositorEffect" id="CompositorEffect_uffpt"]
 resource_local_to_scene = false
 resource_name = ""
 enabled = true
@@ -18,7 +18,7 @@ script = ExtResource("4_uffpt")
 metadata/_custom_type_script = "uid://ds2xjc6exha2q"
 
 [sub_resource type="Compositor" id="Compositor_oecuk"]
-compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_ec3hn")])
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_uffpt")])
 
 [node name="World" type="Node3D"]
 
