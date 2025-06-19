@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://2oh224621abf"]
+[gd_scene load_steps=13 format=3 uid="uid://2oh224621abf"]
 
 [ext_resource type="ArrayMesh" uid="uid://18spx004psax" path="res://KayKit_DungeonRemastered_1.1_FREE/Assets/obj/barrel_small_stack.obj" id="1_oecuk"]
 [ext_resource type="ArrayMesh" uid="uid://bfyhoyha240dw" path="res://KayKit_DungeonRemastered_1.1_FREE/Assets/obj/bed_frame.obj" id="2_uffpt"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://ds2xjc6exha2q" path="res://scripts/gaussian_post.gd" id="4_uffpt"]
 [ext_resource type="Script" uid="uid://d0t35qt30erts" path="res://HandleCameraPost.gd" id="5_6kvxp"]
 [ext_resource type="Shader" uid="uid://djopoqqhksx0u" path="res://scripts/testing_3d_post.gdshader" id="5_ec3hn"]
+[ext_resource type="Texture2D" uid="uid://dxwwgj2o8h4p" path="res://icon.svg" id="7_ax0ki"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6kvxp"]
 
@@ -25,7 +26,7 @@ compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_ec3h
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6kvxp"]
 render_priority = 0
 shader = ExtResource("5_ec3hn")
-shader_parameter/debug_value = 13
+shader_parameter/GAUSSIAN_OUTPUT = ExtResource("7_ax0ki")
 
 [sub_resource type="QuadMesh" id="QuadMesh_ax0ki"]
 flip_faces = true

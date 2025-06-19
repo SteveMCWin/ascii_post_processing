@@ -91,11 +91,6 @@ func _initialize_compute() -> void:
 	uniform.add_id(texture_rds[1])
 	texture_sets[1] = rd.uniform_set_create([uniform], gausian_compute_v, 0)
 
-	# print("texture_rds[1] = ", texture_rds[1])
-	# output_texture.texture_rd_rid = texture_rds[1]
-	print("type of texture_rds[1]: ", typeof(texture_rds[1]))
-	print("type of output_texture: ", typeof(output_texture))
-	
 
 
 func gausian_blur(p_effect_callback_type: EffectCallbackType, p_render_data: RenderData) -> void:
@@ -155,9 +150,8 @@ func gausian_blur(p_effect_callback_type: EffectCallbackType, p_render_data: Ren
 
 				rd.compute_list_end()
 
-				# rd.buffer_copy(texture_sets[1], color_buff, 0, 0, size.x * size.y)
-				# var res := rd.buffer_get_data(texture_rds[1])
-				# print(res)
+				if output_texture:
+					output_texture.texture_rd_rid = texture_rds[0]
 
 
 # Called by the rendering thread every frame.
