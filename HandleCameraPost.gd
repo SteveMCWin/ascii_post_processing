@@ -8,11 +8,7 @@ func _ready() -> void:
 	if(mat):
 		compositor.compositor_effects[0].output_texture = mat.get_shader_parameter("GAUSSIAN_OUTPUT")
 		# print("compositor.compositor_effects[0].output_texture.texture_rd_rid = ", compositor.compositor_effects[0].output_texture.texture_rd_rid)
-		print("after setting type of output_texture: ", typeof(compositor.compositor_effects[0].output_texture))
-		print("shader_parameter: ", mat.get_shader_parameter("GAUSSIAN_OUTPUT"))
-		print("typeof shader_parameter: ", typeof(mat.get_shader_parameter("GAUSSIAN_OUTPUT")))
-	else:
-		print("FAILED TO GET SHADER MATERIAL")
-		print("after setting type of output_texture: ", typeof(compositor.compositor_effects[0].output_texture))
-		print("shader_parameter: ", mat.get_shader_parameter("GAUSSIAN_OUTPUT"))
-		print("typeof shader_parameter: ", typeof(mat.get_shader_parameter("GAUSSIAN_OUTPUT")))
+		# print("after setting type of output_texture: ", typeof(compositor.compositor_effects[0].output_texture))
+		# print("shader_parameter: ", mat.get_shader_parameter("GAUSSIAN_OUTPUT"))
+		# print("typeof shader_parameter: ", typeof(mat.get_shader_parameter("GAUSSIAN_OUTPUT")))
+

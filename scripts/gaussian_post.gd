@@ -54,7 +54,7 @@ func _initialize_compute() -> void:
 		gausian_pipeline_v = rd.compute_pipeline_create(gausian_compute_v)
 	
 	var tf: RDTextureFormat = RDTextureFormat.new()
-	tf.format = RenderingDevice.DATA_FORMAT_R32_SFLOAT
+	tf.format = RenderingDevice.DATA_FORMAT_R8G8B8A8_UNORM
 	tf.texture_type = RenderingDevice.TEXTURE_TYPE_2D
 	tf.width = 1920  # WARNING: hard coded
 	tf.height = 1080 # WARNING: hard coded
@@ -76,9 +76,6 @@ func _initialize_compute() -> void:
 		# Make sure our textures are cleared.
 		rd.texture_clear(texture_rds[i], Color(0, 0, 0, 0), 0, 1, 0, 1)
 
-		# Now create our uniform set so we can use these textures in our shader.
-		# texture_sets[i] = _create_uniform_set(texture_rds[i])
-	
 	var uniform := RDUniform.new()
 	uniform.uniform_type = RenderingDevice.UNIFORM_TYPE_IMAGE
 	uniform.binding = 0
@@ -151,7 +148,9 @@ func gausian_blur(p_effect_callback_type: EffectCallbackType, p_render_data: Ren
 				rd.compute_list_end()
 
 				if output_texture:
-					output_texture.texture_rd_rid = texture_rds[0]
+					output_texture.texture_rd_rid = texture_rds[1]
+					# print("output_texture.texture_rd_rid: ", output_texture.texture_rd_rid)
+					# print("texture_rds[1]: ", texture_rds[1])
 
 
 # Called by the rendering thread every frame.

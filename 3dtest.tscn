@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://ds2xjc6exha2q" path="res://scripts/gaussian_post.gd" id="4_uffpt"]
 [ext_resource type="Script" uid="uid://d0t35qt30erts" path="res://HandleCameraPost.gd" id="5_6kvxp"]
 [ext_resource type="Shader" uid="uid://djopoqqhksx0u" path="res://scripts/testing_3d_post.gdshader" id="5_ec3hn"]
-[ext_resource type="Texture2D" uid="uid://dxwwgj2o8h4p" path="res://icon.svg" id="7_ax0ki"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_6kvxp"]
 
@@ -23,10 +22,12 @@ metadata/_custom_type_script = "uid://ds2xjc6exha2q"
 [sub_resource type="Compositor" id="Compositor_oecuk"]
 compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_ec3hn")])
 
+[sub_resource type="Texture2DRD" id="Texture2DRD_6kvxp"]
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6kvxp"]
 render_priority = 0
 shader = ExtResource("5_ec3hn")
-shader_parameter/GAUSSIAN_OUTPUT = ExtResource("7_ax0ki")
+shader_parameter/GAUSSIAN_OUTPUT = SubResource("Texture2DRD_6kvxp")
 
 [sub_resource type="QuadMesh" id="QuadMesh_ax0ki"]
 flip_faces = true
