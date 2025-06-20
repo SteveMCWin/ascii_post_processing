@@ -66,6 +66,7 @@ func _initialize_compute() -> void:
 			RenderingDevice.TEXTURE_USAGE_COLOR_ATTACHMENT_BIT |
 			RenderingDevice.TEXTURE_USAGE_STORAGE_BIT |
 			RenderingDevice.TEXTURE_USAGE_CAN_UPDATE_BIT |
+			RenderingDevice.TEXTURE_USAGE_CAN_COPY_FROM_BIT |
 			RenderingDevice.TEXTURE_USAGE_CAN_COPY_TO_BIT
 	)
 
@@ -89,6 +90,28 @@ func _initialize_compute() -> void:
 	texture_sets[1] = rd.uniform_set_create([uniform], gausian_compute_v, 0)
 
 
+func init_output_texture() -> void:
+	var tf: RDTextureFormat = RDTextureFormat.new()
+	tf.format = RenderingDevice.DATA_FORMAT_R8G8B8A8_UNORM
+	tf.texture_type = RenderingDevice.TEXTURE_TYPE_2D
+	tf.width = 1920  # WARNING: hard coded
+	tf.height = 1080 # WARNING: hard coded
+	tf.depth = 1
+	tf.array_layers = 1
+	tf.mipmaps = 1
+	tf.usage_bits = (
+			RenderingDevice.TEXTURE_USAGE_SAMPLING_BIT |
+			RenderingDevice.TEXTURE_USAGE_COLOR_ATTACHMENT_BIT |
+			RenderingDevice.TEXTURE_USAGE_STORAGE_BIT |
+			RenderingDevice.TEXTURE_USAGE_CAN_UPDATE_BIT |
+			RenderingDevice.TEXTURE_USAGE_CAN_COPY_FROM_BIT |
+			RenderingDevice.TEXTURE_USAGE_CAN_COPY_TO_BIT
+	)
+
+	output_texture.texture_rd_rid = rd.texture_create(tf, RDTextureView.new(), [])
+
+	# Make sure our textures are cleared.
+	rd.texture_clear(output_texture.texture_rd_rid, Color(0, 0, 0, 0), 0, 1, 0, 1)
 
 func gausian_blur(p_effect_callback_type: EffectCallbackType, p_render_data: RenderData) -> void:
 	if rd and p_effect_callback_type == EFFECT_CALLBACK_TYPE_POST_TRANSPARENT and gausian_pipeline_h.is_valid() and gausian_pipeline_v.is_valid():
@@ -130,6 +153,7 @@ func gausian_blur(p_effect_callback_type: EffectCallbackType, p_render_data: Ren
 				uniform.add_id(color_buff)
 				var color_buff_set := UniformSetCacheRD.get_cache(gausian_compute_h, 0, [uniform])
 
+
 				# Run our compute grayscale_compute.
 				var compute_list := rd.compute_list_begin()
 
@@ -147,10 +171,29 @@ func gausian_blur(p_effect_callback_type: EffectCallbackType, p_render_data: Ren
 
 				rd.compute_list_end()
 
+				# if(rd.texture_is_valid(texture_rds[0]) and rd.texture_is_valid(texture_rds[1])):
+				# 	print("THE TEXTURES ARE VALID")
+				# else:
+				# 	print("THE TEXTURES ARE NOOOOOOOOOOOOT VALID")
+
+				# print(rd.texture_get_data(texture_rds[0], 0))
+
 				if output_texture:
 					output_texture.texture_rd_rid = texture_rds[1]
+					# rd.texture_copy(texture_rds[1], output_texture.texture_rd_rid,
+					# Vector3(0.0, 0.0, 0.0), Vector3(0.0, 0.0, 0.0), Vector3(1920.0, 1080.0, 0.0), 0, 0, 0, 0)
 					# print("output_texture.texture_rd_rid: ", output_texture.texture_rd_rid)
 					# print("texture_rds[1]: ", texture_rds[1])
+
+					# if(rd.texture_is_valid(output_texture.texture_rd_rid)):
+					# 	print("THE OUTPUT TEXTURE IS VALID")
+					# else:
+					# 	print("THE OUTPUT TEXTURE IS NOOOOOOOOOOOOT VALID")
+
+					# print(rd.texture_get_data(texture_rds[1], 0))
+					# var ok := rd.texture_update(output_texture.texture_rd_rid, 0, rd.texture_get_data(color_buff, 0))
+					# if ok == OK:
+					# 	print("THE COPY WAS OK")
 
 
 # Called by the rendering thread every frame.
